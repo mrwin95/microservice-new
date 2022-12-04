@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: root
+#      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - "27017:27017"
+    expose:
+      - "27017"
+    volumes:
+      - mongodb_data_container:/data/db
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: order-service
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data_container:/var/lib/mysql
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+
+volumes:
+  mongodb_data_container:
+  mysql_data_container:
+#  prometheus:
+#  grafana:
